@@ -1,0 +1,140 @@
+version: "0.1.1"
+semantic_model:
+  - name: CRM_ACCOUNT_SEMANTIC_VIEW
+    description: >
+      Apache Ossie semantic model governing live Dataverse CRM accounts across
+      Snowflake Cortex Analyst MCP and Power BI (.pbit) with zero duplicated business logic.
+    ai_context: >
+      Represents live Dataverse CRM accounts (RAW_ACCOUNTS) joined to live Dataverse
+      Picklist lookup tables DIM_ACCOUNT_CATEGORY (CATEGORY_LABEL such as 'Preferred Customer'
+      or 'Standard') and DIM_ACCOUNT_STATE (STATE_LABEL such as 'Active' or 'Inactive').
+      Use TOTAL_REVENUE for revenue totals, AVERAGE_REVENUE for average deal size, and
+      ACCOUNT_COUNT for account counts. Always join DIM_ACCOUNT_CATEGORY on ACCOUNTCATEGORYCODE
+      and DIM_ACCOUNT_STATE on STATECODE when filtering by category or active status.
+    datasets:
+      - name: raw_accounts
+        source: CRM_LAB16.CRM_BRONZE.RAW_ACCOUNTS
+        primary_key:
+          - accountid
+        description: Live CRM accounts synced from Microsoft Dataverse Web API v9.2
+        fields:
+          - name: accountid
+            description: Dataverse uniqueidentifier primary key
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: ACCOUNTID
+          - name: account_name
+            description: Account organization name
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: NAME
+          - name: accountnumber
+            description: Customer account number (ACC-100x)
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: ACCOUNTNUMBER
+          - name: accountcategorycode
+            description: Foreign key to Dataverse accountcategorycode Picklist dimension
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: ACCOUNTCATEGORYCODE
+          - name: statecode
+            description: Foreign key to Dataverse statecode State dimension
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: STATECODE
+          - name: statuscode
+            description: Dataverse status reason integer code
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: STATUSCODE
+          - name: revenue
+            description: Annual account revenue in USD
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: REVENUE
+          - name: modifiedon
+            description: Last modified UTC timestamp in Dataverse
+            dimension:
+              is_time: true
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: MODIFIEDON
+      - name: dim_account_category
+        source: CRM_OSSIE_LAB18.SEMANTIC.DIM_ACCOUNT_CATEGORY
+        primary_key:
+          - category_code
+        description: Live Dataverse PicklistOption labels synced from accountcategorycode metadata
+        fields:
+          - name: category_code
+            description: Integer picklist option value
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: CATEGORY_CODE
+          - name: category_label
+            description: Human-readable Dataverse category label (e.g. Preferred Customer, Standard)
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: CATEGORY_LABEL
+      - name: dim_account_state
+        source: CRM_OSSIE_LAB18.SEMANTIC.DIM_ACCOUNT_STATE
+        primary_key:
+          - state_code
+        description: Live Dataverse StateOption labels synced from statecode metadata
+        fields:
+          - name: state_code
+            description: Integer state option value
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: STATE_CODE
+          - name: state_label
+            description: Human-readable Dataverse state label (e.g. Active, Inactive)
+            expression:
+              dialects:
+                - dialect: ANSI_SQL
+                  expression: STATE_LABEL
+    relationships:
+      - name: account_to_category
+        from: raw_accounts
+        to: dim_account_category
+        from_columns:
+          - accountcategorycode
+        to_columns:
+          - category_code
+      - name: account_to_state
+        from: raw_accounts
+        to: dim_account_state
+        from_columns:
+          - statecode
+        to_columns:
+          - state_code
+    metrics:
+      - name: total_revenue
+        description: Sum of annual revenue across CRM accounts
+        expression:
+          dialects:
+            - dialect: ANSI_SQL
+              expression: SUM(raw_accounts.revenue)
+      - name: average_revenue
+        description: Average annual revenue per CRM account
+        expression:
+          dialects:
+            - dialect: ANSI_SQL
+              expression: AVG(raw_accounts.revenue)
+      - name: account_count
+        description: Total number of distinct CRM accounts
+        expression:
+          dialects:
+            - dialect: ANSI_SQL
+              expression: COUNT(raw_accounts.accountid)

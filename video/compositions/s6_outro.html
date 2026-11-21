@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s6-root {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 22% 28%, rgba(0, 147, 199, 0.2) 0%, transparent 48%),
+            radial-gradient(circle at 80% 74%, rgba(124, 58, 237, 0.16) 0%, transparent 50%),
+            #060912;
+          padding: 46px 64px;
+          display: grid;
+          grid-template-columns: 812px 940px;
+          gap: 40px;
+          align-items: stretch;
+          color: #f8fafc;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .s6-left {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 20px;
+          padding: 18px 0;
+          min-height: 0;
+        }
+        .s6-header {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .s6-eyebrow {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: 0.15em;
+          color: #38bdf8;
+        }
+        .s6-title {
+          font-size: 56px;
+          font-weight: 800;
+          line-height: 1.08;
+          letter-spacing: -0.025em;
+          color: #f8fafc;
+        }
+        .s6-title-accent {
+          color: #7dd3fc;
+        }
+        .s6-sub {
+          font-size: 26px;
+          line-height: 1.42;
+          color: #cbd5e1;
+        }
+        .s6-thesis-box {
+          background: rgba(13, 19, 34, 0.92);
+          border: 1px solid rgba(56, 189, 248, 0.35);
+          border-left: 5px solid #0093c7;
+          border-radius: 14px;
+          padding: 18px 22px;
+          font-size: 22px;
+          line-height: 1.45;
+          color: #e2e8f0;
+        }
+        .s6-pills {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+        .s6-pill {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          font-weight: 700;
+          padding: 13px 16px;
+          border-radius: 12px;
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(52, 211, 153, 0.48);
+          color: #6ee7b7;
+          box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        }
+        .s6-lockup {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 18px;
+          padding: 15px 24px;
+          border-radius: 14px;
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(56, 189, 248, 0.42);
+          font-size: 20px;
+          color: #e2e8f0;
+        }
+        .s6-repo {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          color: #7dd3fc;
+          font-weight: 700;
+        }
+        .s6-bezel {
+          width: 940px;
+          height: 988px;
+          background: #0d1322;
+          border: 1px solid rgba(56, 189, 248, 0.48);
+          border-radius: 18px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 28px 80px rgba(0, 0, 0, 0.65), 0 0 42px rgba(0, 147, 199, 0.16);
+        }
+        .s6-bezel-bar {
+          height: 44px;
+          flex-shrink: 0;
+          background: #0f172a;
+          border-bottom: 1px solid rgba(56, 189, 248, 0.28);
+          padding: 0 18px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 15px;
+          font-weight: 700;
+          color: #e2e8f0;
+        }
+        .s6-bezel-badge {
+          font-size: 13px;
+          padding: 4px 12px;
+          border-radius: 999px;
+          background: rgba(56, 189, 248, 0.16);
+          color: #7dd3fc;
+          border: 1px solid rgba(56, 189, 248, 0.42);
+        }
+        .s6-stage {
+          flex: 1;
+          min-height: 0;
+          width: 100%;
+          overflow: hidden;
+          background: #f0f9ff;
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+        }
+        .s6-poster {
+          height: 942px;
+          width: auto;
+          display: block;
+          box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+        }
+      </style>
+
+      <div id="s6-root" data-composition-id="s6" data-width="1920" data-height="1080" data-duration="13">
+        <div class="s6-left">
+          <div class="s6-header">
+            <div id="s6-eyebrow" class="s6-eyebrow" data-layout-ignore>LAB 18 · ONE-PAGE SUMMARY · 06 / 06</div>
+            <div id="s6-title" class="s6-title">
+              Apache Ossie:
+              <div class="s6-title-accent">A Rosetta Stone for Semantic Definitions</div>
+            </div>
+            <div id="s6-sub" class="s6-sub">Data contracts guard tables. dbt builds them. Apache Ossie makes core metrics portable across platforms.</div>
+          </div>
+
+          <div id="s6-thesis" class="s6-thesis-box" data-layout-ignore>
+            One Git-tracked YAML over live Dataverse accounts compiled to Snowflake Cortex MCP and Power BI .pbit — showing what works today and where vendor lock-in shifts from tables to meaning.
+          </div>
+
+          <div class="s6-pills">
+            <div id="s6-p1" class="s6-pill" data-layout-ignore>OSI 0.1.1 &lt;-&gt; 0.3.0.dev0</div>
+            <div id="s6-p2" class="s6-pill" data-layout-ignore>Snowflake Cortex MCP · $4,990,000.00</div>
+            <div id="s6-p3" class="s6-pill" data-layout-ignore>Power BI .pbit · 3 DAX &amp; 2 Joins</div>
+            <div id="s6-p4" class="s6-pill" data-layout-ignore>14/14 pytest · 0 Skips</div>
+          </div>
+
+          <div id="s6-lockup" class="s6-lockup" data-layout-ignore>
+            <span class="s6-repo">lab18-apache-ossie-two-clouds</span>
+            <span>Shaun Anderson</span>
+          </div>
+        </div>
+
+        <div id="s6-bezel" class="s6-bezel" data-layout-ignore>
+          <div class="s6-bezel-bar" data-layout-ignore>
+            <span>Apache Ossie · Lab 18 One-Pager</span>
+            <span class="s6-bezel-badge">Full Summary Infographic</span>
+          </div>
+          <div id="s6-stage" class="s6-stage" data-layout-ignore>
+            <img id="s6-poster" class="s6-poster" src="assets/lab18_ossie_one_pager.png" alt="Lab 18 Apache Ossie One-Pager Infographic" data-layout-ignore />
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.set("#s6-poster", { transformOrigin: "50% 0%", scale: 1.34, y: 0 }, 0)
+          .fromTo("#s6-eyebrow", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.08)
+          .fromTo("#s6-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65, ease: "power3.out" }, 0.25)
+          .fromTo("#s6-sub", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.55)
+          .fromTo("#s6-bezel", { opacity: 0, y: 36, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.85, ease: "power3.out" }, 0.15)
+          .fromTo("#s6-thesis", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 0.9)
+          .fromTo(["#s6-p1", "#s6-p2", "#s6-p3", "#s6-p4"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.14, ease: "back.out(1.2)" }, 1.25)
+          .fromTo("#s6-lockup", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 1.9)
+          .to("#s6-poster", { y: -318, duration: 4.4, ease: "power1.inOut" }, 3.2)
+          .to("#s6-poster", { scale: 1, y: 0, duration: 1.6, ease: "power2.inOut" }, 8.2)
+          .to("#s6-lockup", { borderColor: "rgba(52, 211, 153, 0.85)", boxShadow: "0 0 36px rgba(52, 211, 153, 0.3)", duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 10.1);
+
+        window.__timelines["s6"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

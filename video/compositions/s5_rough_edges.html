@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s5-root {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 25% 25%, rgba(245, 158, 11, 0.16) 0%, transparent 45%),
+            radial-gradient(circle at 80% 75%, rgba(251, 113, 133, 0.12) 0%, transparent 45%),
+            #060912;
+          padding: 48px 72px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 16px;
+          color: #f8fafc;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .s5-header {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .s5-eyebrow {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          color: #fbbf24;
+        }
+        .s5-title {
+          font-size: 54px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .s5-sub {
+          font-size: 28px;
+          color: #cbd5e1;
+        }
+        .s5-grid {
+          flex: 1;
+          min-height: 0;
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
+          gap: 26px;
+          align-items: stretch;
+        }
+        .s5-card {
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(251, 191, 36, 0.48);
+          border-radius: 18px;
+          padding: 18px 22px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 10px;
+          min-height: 0;
+          box-shadow: 0 24px 65px rgba(0, 0, 0, 0.6), 0 0 36px rgba(245, 158, 11, 0.12);
+        }
+        .s5-card-num {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.1em;
+          color: #fcd34d;
+        }
+        .s5-card-title {
+          font-size: 30px;
+          font-weight: 800;
+          color: #f8fafc;
+        }
+        .s5-code-diff {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          line-height: 1.44;
+          background: rgba(6, 9, 18, 0.92);
+          border: 1px solid rgba(148, 163, 184, 0.22);
+          border-radius: 10px;
+          padding: 11px 14px;
+          white-space: pre-wrap;
+          color: #e2e8f0;
+        }
+        .s5-warn { color: #fcd34d; font-weight: 700; }
+        .s5-ok { color: #6ee7b7; font-weight: 700; }
+        .s5-bezel {
+          flex: 1;
+          min-height: 360px;
+          background: rgba(10, 15, 29, 0.98);
+          border: 1px solid rgba(251, 191, 36, 0.38);
+          border-radius: 12px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        .s5-bezel-bar {
+          background: rgba(15, 23, 42, 0.98);
+          border-bottom: 1px solid rgba(251, 191, 36, 0.24);
+          padding: 8px 14px;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 14px;
+          font-weight: 700;
+          color: #fde047;
+          display: flex;
+          justify-content: space-between;
+        }
+        .s5-bezel-stage {
+          flex: 1;
+          min-height: 0;
+          background: #0b1120;
+          padding: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .s5-bezel-stage img {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          border-radius: 8px;
+          border: 1px solid rgba(148, 163, 184, 0.35);
+          box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45);
+        }
+        .s5-takeaway {
+          font-size: 20px;
+          line-height: 1.42;
+          color: #cbd5e1;
+          padding: 13px 16px;
+          border-radius: 12px;
+          background: rgba(245, 158, 11, 0.1);
+          border-left: 4px solid #fbbf24;
+        }
+        .s5-proof-pill {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          font-weight: 700;
+          color: #6ee7b7;
+          padding: 12px 16px;
+          border-radius: 10px;
+          background: rgba(16, 185, 129, 0.12);
+          border: 1px solid rgba(52, 211, 153, 0.4);
+        }
+        .s5-footer {
+          font-size: 22px;
+          color: #cbd5e1;
+          text-align: center;
+          padding: 14px 22px;
+          border-radius: 14px;
+          background: rgba(13, 19, 34, 0.9);
+          border: 1px solid rgba(148, 163, 184, 0.24);
+        }
+      </style>
+
+      <div id="s5-root" data-composition-id="s5" data-width="1920" data-height="1080" data-duration="11">
+        <div class="s5-header">
+          <div id="s5-eyebrow" class="s5-eyebrow" data-layout-ignore>EMPIRICAL REALITY CHECK · 05 / 06</div>
+          <div id="s5-title" class="s5-title">Two Real Rough Edges</div>
+          <div id="s5-sub" class="s5-sub">What actually broke or surprised me running live against Snowflake 10.42.103</div>
+        </div>
+
+        <div class="s5-grid">
+          <div id="s5-card-1" class="s5-card">
+            <div class="s5-card-num" data-layout-ignore>ROUGH EDGE 01 · SPEC DRIFT ALREADY</div>
+            <div class="s5-card-title">OSI 0.3.0.dev0 vs Snowflake 0.1.1</div>
+            <div class="s5-code-diff" data-layout-ignore><span class="s5-ok">apache/ossie main:</span>  version "0.3.0.dev0" · object ai_context · expression.sql
+<span class="s5-warn">Snowflake 10.42.103:</span> version "0.1.1" only · string ai_context · expression.dialects</div>
+            <div class="s5-bezel">
+              <div class="s5-bezel-bar" data-layout-ignore>
+                <span>Snowsight SQL Definition · Compiled View + extension</span>
+                <span style="color:#6ee7b7;">with extension (OSI='...')</span>
+              </div>
+              <div class="s5-bezel-stage">
+                <img src="assets/screenshots/sf_roundtrip.png" alt="Snowsight SQL Definition with extension OSI" />
+              </div>
+            </div>
+            <div class="s5-takeaway" data-layout-ignore>ossie_validator.py enforces Snowflake 0.1.1 and bridges to ossie-schema.json 0.3.0.dev0 in-memory.</div>
+          </div>
+
+          <div id="s5-card-2" class="s5-card">
+            <div class="s5-card-num" data-layout-ignore>ROUGH EDGE 02 · DAX TRANSPILER QUIRK</div>
+            <div class="s5-card-title">CASE WHEN -&gt; SUM(SWITCH(...))</div>
+            <div class="s5-code-diff" data-layout-ignore><span class="s5-warn">Input SQL:</span>
+  SUM(CASE WHEN cat = 1 THEN rev ELSE 0 END)
+
+<span class="s5-ok">Exported .pbit DAX:</span>
+  SUM(SWITCH(TRUE(), ...))  (instead of SUMX)</div>
+            <div class="s5-takeaway" data-layout-ignore>Star-schema base aggregates (TOTAL_REVENUE, AVERAGE_REVENUE, ACCOUNT_COUNT) slice cleanly across Dataverse dimensions in both Snowflake and Power BI today, while complex row-level DAX still needs review.</div>
+            <div class="s5-proof-pill" data-layout-ignore>READ_OSSIE_YAML Round-Trip matched=True · AIContext Preserved=True</div>
+          </div>
+        </div>
+
+        <div id="s5-footer" class="s5-footer" data-layout-ignore>Still early days: complex finance models aren't moving seamlessly across platforms yet.</div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s5-eyebrow", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4 }, 0.08)
+          .fromTo("#s5-title", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55 }, 0.18)
+          .fromTo("#s5-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45 }, 0.4)
+          .fromTo("#s5-card-1", { opacity: 0, y: 28, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 0.85)
+          .fromTo("#s5-card-2", { opacity: 0, y: 28, scale: 0.97 }, { opacity: 1, y: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 1.65)
+          .fromTo("#s5-footer", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55 }, 2.7)
+          .to("#s5-card-1", { borderColor: "rgba(251, 191, 36, 0.9)", duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 4.2)
+          .to("#s5-card-2", { borderColor: "rgba(251, 191, 36, 0.9)", duration: 1.1, ease: "sine.inOut", yoyo: true, repeat: 1 }, 7.0);
+
+        window.__timelines["s5"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

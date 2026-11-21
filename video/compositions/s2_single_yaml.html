@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s2-root {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 78% 24%, rgba(52, 211, 153, 0.14) 0%, transparent 45%),
+            radial-gradient(circle at 18% 76%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+            #060912;
+          padding: 48px 72px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 18px;
+          color: #f8fafc;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .s2-header {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .s2-eyebrow {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          color: #38bdf8;
+        }
+        .s2-title {
+          font-size: 54px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .s2-main {
+          flex: 1;
+          min-height: 0;
+          display: grid;
+          grid-template-columns: 1.4fr 0.94fr;
+          gap: 28px;
+          align-items: stretch;
+        }
+        .s2-left {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 16px;
+          min-height: 0;
+        }
+        .s2-editor {
+          flex: 1;
+          min-height: 0;
+          background: rgba(10, 15, 29, 0.95);
+          border: 1px solid rgba(56, 189, 248, 0.35);
+          border-radius: 18px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+        }
+        .s2-editor-bar {
+          height: 44px;
+          background: rgba(15, 23, 42, 0.96);
+          border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+          padding: 0 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          color: #cbd5e1;
+        }
+        .s2-dots {
+          display: flex;
+          gap: 8px;
+        }
+        .s2-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+        }
+        .s2-dot-r { background: #ef4444; }
+        .s2-dot-y { background: #eab308; }
+        .s2-dot-g { background: #22c55e; }
+        .s2-code-body {
+          padding: 20px 26px;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 21px;
+          line-height: 1.46;
+          white-space: pre-wrap;
+          color: #e2e8f0;
+        }
+        .s2-k { color: #7dd3fc; font-weight: 700; }
+        .s2-s { color: #86efac; }
+        .s2-h { color: #fde047; font-weight: 700; }
+        .s2-merge-card {
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(52, 211, 153, 0.45);
+          border-radius: 16px;
+          padding: 18px 22px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          box-shadow: 0 18px 46px rgba(0, 0, 0, 0.5);
+        }
+        .s2-merge-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+        .s2-merge-title {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 20px;
+          font-weight: 700;
+          color: #6ee7b7;
+        }
+        .s2-badge-green {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 14px;
+          font-weight: 700;
+          padding: 5px 12px;
+          border-radius: 999px;
+          background: rgba(16, 185, 129, 0.16);
+          color: #6ee7b7;
+          border: 1px solid rgba(52, 211, 153, 0.45);
+          white-space: nowrap;
+        }
+        .s2-merge-detail {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 17px;
+          color: #cbd5e1;
+          line-height: 1.42;
+        }
+        .s2-footer-bar {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 14px 22px;
+          border-radius: 14px;
+          background: rgba(13, 19, 34, 0.92);
+          border: 1px solid rgba(56, 189, 248, 0.3);
+          font-size: 20px;
+          color: #cbd5e1;
+        }
+        .s2-footer-strong {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          color: #38bdf8;
+          font-weight: 700;
+        }
+        .s2-bezel {
+          background: rgba(13, 19, 34, 0.96);
+          border: 1px solid rgba(52, 211, 153, 0.5);
+          border-radius: 18px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          min-height: 0;
+          box-shadow: 0 24px 65px rgba(0, 0, 0, 0.62);
+        }
+        .s2-bezel-bar {
+          background: rgba(15, 23, 42, 0.98);
+          border-bottom: 1px solid rgba(52, 211, 153, 0.25);
+          padding: 13px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+        }
+        .s2-bezel-title {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          font-weight: 700;
+          color: #f8fafc;
+        }
+        .s2-bezel-stage {
+          flex: 1;
+          min-height: 0;
+          background: #0b1120;
+          padding: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .s2-bezel-stage img {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          border-radius: 10px;
+          border: 1px solid rgba(148, 163, 184, 0.35);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+        .s2-bezel-foot {
+          background: rgba(10, 15, 29, 0.98);
+          border-top: 1px solid rgba(148, 163, 184, 0.2);
+          padding: 12px 18px;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          color: #6ee7b7;
+          display: flex;
+          justify-content: space-between;
+        }
+      </style>
+
+      <div id="s2-root" data-composition-id="s2" data-width="1920" data-height="1080" data-duration="11">
+        <div class="s2-header">
+          <div id="s2-eyebrow" class="s2-eyebrow" data-layout-ignore>SINGLE SOURCE OF TRUTH · 02 / 06</div>
+          <div id="s2-title" class="s2-title">One Open YAML + Live Dataverse Metadata</div>
+        </div>
+
+        <div class="s2-main">
+          <div class="s2-left">
+            <div id="s2-editor" class="s2-editor">
+              <div class="s2-editor-bar" data-layout-ignore>
+                <div class="s2-dots">
+                  <div class="s2-dot s2-dot-r"></div>
+                  <div class="s2-dot s2-dot-y"></div>
+                  <div class="s2-dot s2-dot-g"></div>
+                </div>
+                <div>semantic/crm_account_model.ossie.yaml</div>
+                <div>OSI 0.1.1 -&gt; 0.3.0.dev0</div>
+              </div>
+              <div id="s2-code-body" class="s2-code-body" data-layout-ignore><span class="s2-k">version:</span> <span class="s2-s">"0.1.1"</span>
+<span class="s2-k">name:</span> <span class="s2-h">CRM_ACCOUNT_SEMANTIC_VIEW</span>
+<span class="s2-k">ai_context:</span> <span class="s2-s">"Join category &amp; state dims"</span>
+<span class="s2-k">datasets:</span>
+  - raw_accounts
+  - dim_account_category
+  - dim_account_state
+<span class="s2-k">relationships:</span>
+  - account_to_category · account_to_state
+<span class="s2-k">metrics:</span>
+  - <span class="s2-h">total_revenue:</span>   <span class="s2-s">SUM(revenue)</span>
+  - <span class="s2-h">average_revenue:</span> <span class="s2-s">AVG(revenue)</span>
+  - <span class="s2-h">account_count:</span>   <span class="s2-s">COUNT(accountid)</span></div>
+            </div>
+
+            <div id="s2-merge-card" class="s2-merge-card">
+              <div class="s2-merge-top">
+                <div class="s2-merge-title" data-layout-ignore>Web API v9.2 MERGE Sync</div>
+                <div class="s2-badge-green" data-layout-ignore>Zero hardcoded SQL</div>
+              </div>
+              <div class="s2-merge-detail" data-layout-ignore>PicklistAttributeMetadata + StateAttributeMetadata -&gt; DIM_ACCOUNT_CATEGORY (1: Preferred Customer, 2: Standard) &amp; DIM_ACCOUNT_STATE (0: Active, 1: Inactive)</div>
+            </div>
+
+            <div id="s2-footer" class="s2-footer-bar" data-layout-ignore>
+              <div>Validated vs <span class="s2-footer-strong">apache/ossie/osi-schema.json</span> + Snowflake OSI</div>
+              <div class="s2-footer-strong">3 Datasets · 2 Joins · 3 Metrics</div>
+            </div>
+          </div>
+
+          <div id="s2-dv-bezel" class="s2-bezel">
+            <div class="s2-bezel-bar" data-layout-ignore>
+              <div class="s2-bezel-title">Dataverse Choice Schema (accountcategorycode)</div>
+              <div class="s2-badge-green">Live OptionSet</div>
+            </div>
+            <div class="s2-bezel-stage">
+              <img src="assets/screenshots/dv_picklist.png" alt="Power Apps Category OptionSet Choice Options" />
+            </div>
+            <div class="s2-bezel-foot" data-layout-ignore>
+              <span>1 = Preferred Customer</span>
+              <span>2 = Standard</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s2-eyebrow", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 0.08)
+          .fromTo("#s2-title", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.2)
+          .fromTo("#s2-editor", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.6)
+          .fromTo("#s2-dv-bezel", { opacity: 0, x: 30, scale: 0.97 }, { opacity: 1, x: 0, scale: 1, duration: 0.75, ease: "power3.out" }, 0.95)
+          .fromTo("#s2-merge-card", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 1.75)
+          .fromTo("#s2-footer", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "power2.out" }, 2.55)
+          .to("#s2-merge-card", { borderColor: "rgba(52, 211, 153, 0.9)", duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 4.2)
+          .to("#s2-dv-bezel", { borderColor: "rgba(52, 211, 153, 0.85)", duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 6.2);
+
+        window.__timelines["s2"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

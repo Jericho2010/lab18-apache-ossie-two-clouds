@@ -1,0 +1,197 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Lab 18: Apache Ossie Semantic Interchange Architecture",
+    "subtitle": "One Git-tracked YAML compiled across Snowflake Semantic View MCP and Power BI .pbit",
+    "output": "docs/architecture/lab18-ossie.html",
+    "visual_preset": "editorial",
+    "quality_profile": "showcase"
+  },
+  "components": [
+    {
+      "id": "dataverse",
+      "type": "external",
+      "label": "Microsoft Dataverse",
+      "sublabel": "5 CRM accounts + OptionSets",
+      "pos": [40, 240],
+      "size": [185, 64]
+    },
+    {
+      "id": "ossie",
+      "type": "backend",
+      "label": "Apache Ossie YAML",
+      "sublabel": "crm_account_model.ossie.yaml",
+      "tag": "OSI 0.1.1 / 0.3.0",
+      "pos": [390, 240],
+      "size": [200, 64]
+    },
+    {
+      "id": "dims",
+      "type": "database",
+      "label": "CRM_LAB16 + Dims",
+      "sublabel": "5 accts + Category/State",
+      "pos": [760, 65],
+      "size": [205, 64]
+    },
+    {
+      "id": "sf_view",
+      "type": "database",
+      "label": "Snowflake Semantic View",
+      "sublabel": "CRM_ACCOUNT_SEMANTIC_VIEW",
+      "pos": [760, 240],
+      "size": [205, 64]
+    },
+    {
+      "id": "mcp",
+      "type": "security",
+      "label": "Managed MCP Server",
+      "sublabel": "CORTEX_ANALYST_MESSAGE",
+      "tag": "SVC_LAB18_MCP + /32",
+      "pos": [1135, 240],
+      "size": [205, 64]
+    },
+    {
+      "id": "rest_sql",
+      "type": "backend",
+      "label": "Snowflake SQL REST",
+      "sublabel": "/api/v2/statements",
+      "tag": "$4,990,000.00",
+      "pos": [1135, 65],
+      "size": [205, 64]
+    },
+    {
+      "id": "agent",
+      "type": "frontend",
+      "label": "AI Agent / Client",
+      "sublabel": "HTTPS JSON-RPC + REST",
+      "pos": [1500, 240],
+      "size": [185, 64]
+    },
+    {
+      "id": "pbit",
+      "type": "cloud",
+      "label": "Power BI .pbit Export",
+      "sublabel": "DataModelSchema UTF-16-LE",
+      "tag": "3 DAX · 2 Joins",
+      "pos": [760, 415],
+      "size": [205, 64]
+    },
+    {
+      "id": "pbi_qa",
+      "type": "frontend",
+      "label": "Power BI / Python QA",
+      "sublabel": "DirectQuery M + Star Schema",
+      "pos": [1135, 415],
+      "size": [205, 64]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Snowflake Platform (CRM_OSSIE_LAB18)",
+      "wraps": ["dims", "sf_view", "mcp", "rest_sql"]
+    },
+    {
+      "kind": "security-group",
+      "label": "Scoped Auth (SVC_LAB18_MCP + /32 IP)",
+      "wraps": ["mcp", "rest_sql"]
+    },
+    {
+      "kind": "region",
+      "label": "Power BI Platform (.pbit Archive)",
+      "wraps": ["pbit", "pbi_qa"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "dataverse-to-ossie",
+      "from": "dataverse",
+      "to": "ossie",
+      "label": "Web API v9.2 labels",
+      "variant": "emphasis"
+    },
+    {
+      "id": "ossie-to-sf-view",
+      "from": "ossie",
+      "to": "sf_view",
+      "label": "CREATE SEMANTIC VIEW",
+      "variant": "emphasis"
+    },
+    {
+      "id": "dims-to-sf-view",
+      "from": "dims",
+      "to": "sf_view",
+      "label": "star-schema join",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "sf-view-to-mcp",
+      "from": "sf_view",
+      "to": "mcp",
+      "label": "Cortex Analyst",
+      "variant": "emphasis"
+    },
+    {
+      "id": "mcp-to-rest-sql",
+      "from": "mcp",
+      "to": "rest_sql",
+      "label": "governed SQL",
+      "variant": "security",
+      "fromSide": "top",
+      "toSide": "bottom"
+    },
+    {
+      "id": "mcp-to-agent",
+      "from": "mcp",
+      "to": "agent",
+      "label": "HTTP 200 JSON-RPC",
+      "variant": "security"
+    },
+    {
+      "id": "sf-view-to-pbit",
+      "from": "sf_view",
+      "to": "pbit",
+      "label": "EXPORT_PBIT",
+      "variant": "dashed",
+      "fromSide": "bottom",
+      "toSide": "top"
+    },
+    {
+      "id": "pbit-to-pbi-qa",
+      "from": "pbit",
+      "to": "pbi_qa",
+      "label": "UTF-16-LE decode"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Rosetta Stone Spec",
+      "items": [
+        "Interchange YAML, not a query engine",
+        "Bridges OSI 0.1.1 preview & 0.3.0.dev0",
+        "3 datasets · 2 joins · 3 metrics"
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Platform 1: Snowflake MCP",
+      "items": [
+        "CORTEX_ANALYST_MESSAGE only (no raw SQL)",
+        "Dedicated service user + /32 IP policy",
+        "$4,990,000.00 exact SQL parity"
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Platform 2 & Rough Edges",
+      "items": [
+        "Power BI .pbit verified: 3 DAX + 2 joins",
+        "Spec drift already between 0.1.1 & 0.3.0",
+        "CASE WHEN -> SUM(SWITCH) needs SUMX"
+      ]
+    }
+  ]
+}

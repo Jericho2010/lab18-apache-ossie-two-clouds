@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s4-root {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 22% 72%, rgba(250, 204, 21, 0.12) 0%, transparent 46%),
+            radial-gradient(circle at 80% 22%, rgba(56, 189, 248, 0.14) 0%, transparent 45%),
+            #060912;
+          padding: 48px 72px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 18px;
+          color: #f8fafc;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .s4-header {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .s4-eyebrow {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          color: #facc15;
+        }
+        .s4-title {
+          font-size: 52px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+        }
+        .s4-main {
+          flex: 1;
+          min-height: 0;
+          display: grid;
+          grid-template-columns: 1.22fr 0.98fr;
+          gap: 26px;
+          align-items: stretch;
+        }
+        .s4-internals-panel {
+          background: rgba(13, 19, 34, 0.96);
+          border: 1px solid rgba(250, 204, 21, 0.42);
+          border-radius: 18px;
+          padding: 20px 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 12px;
+          min-height: 0;
+          box-shadow: 0 24px 60px rgba(0, 0, 0, 0.58);
+        }
+        .s4-zip-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 12px 16px;
+          border-radius: 10px;
+          background: rgba(6, 9, 18, 0.92);
+          border: 1px solid rgba(250, 204, 21, 0.45);
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          color: #fde047;
+        }
+        .s4-zip-entries {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .s4-zip-chip {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 14px;
+          padding: 5px 10px;
+          border-radius: 8px;
+          background: rgba(15, 23, 42, 0.92);
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          color: #cbd5e1;
+        }
+        .s4-zip-chip-hi {
+          border-color: rgba(56, 189, 248, 0.5);
+          color: #7dd3fc;
+          font-weight: 700;
+        }
+        .s4-excerpt-card {
+          background: rgba(6, 9, 18, 0.92);
+          border: 1px solid rgba(148, 163, 184, 0.22);
+          border-radius: 12px;
+          padding: 13px 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .s4-excerpt-label {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 15px;
+          font-weight: 700;
+          color: #7dd3fc;
+          display: flex;
+          justify-content: space-between;
+        }
+        .s4-excerpt-tag {
+          color: #6ee7b7;
+          font-weight: 600;
+        }
+        .s4-excerpt-code {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          line-height: 1.42;
+          color: #e2e8f0;
+          white-space: pre-wrap;
+        }
+        .s4-k { color: #fde047; }
+        .s4-s { color: #86efac; }
+        .s4-right {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 16px;
+          min-height: 0;
+        }
+        .s4-star-panel {
+          flex: 1;
+          min-height: 0;
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(56, 189, 248, 0.35);
+          border-radius: 18px;
+          padding: 18px 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 0;
+        }
+        .s4-fact-box {
+          background: rgba(15, 23, 42, 0.96);
+          border: 1px solid rgba(56, 189, 248, 0.48);
+          border-radius: 12px;
+          padding: 13px 16px;
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+        .s4-table-head {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 19px;
+          font-weight: 700;
+          color: #7dd3fc;
+        }
+        .s4-cols {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 14px;
+          color: #cbd5e1;
+          line-height: 1.38;
+        }
+        .s4-join-zone {
+          position: relative;
+          flex: 1;
+          min-height: 110px;
+          width: 100%;
+        }
+        .s4-svg-joins {
+          width: 100%;
+          height: 100%;
+          display: block;
+        }
+        .s4-fk-pill {
+          position: absolute;
+          top: 50%;
+          margin-top: -15px;
+          padding: 4px 10px;
+          border-radius: 999px;
+          background: #090f1e;
+          border: 1px solid rgba(52, 211, 153, 0.65);
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 13px;
+          font-weight: 700;
+          color: #6ee7b7;
+          white-space: nowrap;
+        }
+        .s4-fk-left { left: 7%; }
+        .s4-fk-right { right: 10%; }
+        .s4-dims-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+        }
+        .s4-dim-box {
+          background: rgba(6, 9, 18, 0.92);
+          border: 1px solid rgba(52, 211, 153, 0.45);
+          border-radius: 12px;
+          padding: 12px 14px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+        }
+        .s4-dim-name {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          font-weight: 700;
+          color: #6ee7b7;
+        }
+        .s4-dax-box {
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(56, 189, 248, 0.3);
+          border-radius: 16px;
+          padding: 16px 20px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .s4-dax-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 9px 14px;
+          border-radius: 9px;
+          background: rgba(6, 9, 18, 0.9);
+          border: 1px solid rgba(148, 163, 184, 0.16);
+          font-family: Menlo, Monaco, Consolas, monospace;
+        }
+        .s4-dax-name {
+          font-size: 17px;
+          font-weight: 700;
+          color: #fde047;
+        }
+        .s4-dax-expr {
+          font-size: 16px;
+          color: #f8fafc;
+        }
+        .s4-verified-bar {
+          padding: 14px 20px;
+          border-radius: 14px;
+          background: rgba(16, 185, 129, 0.14);
+          border: 1px solid rgba(52, 211, 153, 0.48);
+          font-size: 20px;
+          font-weight: 700;
+          color: #6ee7b7;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      </style>
+
+      <div id="s4-root" data-composition-id="s4" data-width="1920" data-height="1080" data-duration="13">
+        <div class="s4-header">
+          <div id="s4-eyebrow" class="s4-eyebrow" data-layout-ignore>PLATFORM 2 · POWER BI .PBIT INTERNALS · 04 / 06</div>
+          <div id="s4-title" class="s4-title">Platform 2: Inside the Exported Power BI .pbit</div>
+        </div>
+
+        <div class="s4-main">
+          <div id="s4-internals" class="s4-internals-panel">
+            <div class="s4-zip-head" data-layout-ignore>
+              <span>crm_account_model.pbit (~5.9 KB ZIP)</span>
+              <span>compatibilityLevel: 1550 · powerBI_V3</span>
+            </div>
+
+            <div id="s4-zip-chips" class="s4-zip-entries" data-layout-ignore>
+              <span class="s4-zip-chip s4-zip-chip-hi">DataModelSchema (22,734 B · UTF-16-LE)</span>
+              <span class="s4-zip-chip">Report/Layout (2,540 B)</span>
+              <span class="s4-zip-chip">DiagramLayout (838 B)</span>
+              <span class="s4-zip-chip">CY25SU11.json (613 B)</span>
+              <span class="s4-zip-chip">[Content_Types].xml</span>
+              <span class="s4-zip-chip">Settings</span>
+              <span class="s4-zip-chip">Metadata</span>
+              <span class="s4-zip-chip">Version</span>
+            </div>
+
+            <div id="s4-ex-1" class="s4-excerpt-card" data-layout-ignore>
+              <div class="s4-excerpt-label">
+                <span>1. DirectQuery Power Query M Partition (RAW_ACCOUNTS)</span>
+                <span class="s4-excerpt-tag">"mode": "directQuery"</span>
+              </div>
+              <div class="s4-excerpt-code"><span class="s4-k">Source</span> = Snowflake.Databases(<span class="s4-s">"&lt;org&gt;-&lt;account&gt;.snowflakecomputing.com"</span>,
+                                 <span class="s4-s">"SNOWFLAKE_LEARNING_WH"</span>, [Role=<span class="s4-s">"ACCOUNTADMIN"</span>]),
+CRM_LAB16_Database = Source{[Name=<span class="s4-s">"CRM_LAB16"</span>,Kind=<span class="s4-s">"Database"</span>]}[Data],
+RAW_ACCOUNTS_Table = CRM_BRONZE_Schema{[Name=<span class="s4-s">"RAW_ACCOUNTS"</span>,Kind=<span class="s4-s">"Table"</span>]}[Data]</div>
+            </div>
+
+            <div id="s4-ex-2" class="s4-excerpt-card" data-layout-ignore>
+              <div class="s4-excerpt-label">
+                <span>2. TMSL Measure Object (table: Derived Metrics)</span>
+                <span class="s4-excerpt-tag">"SummarizationSetBy": "Automatic"</span>
+              </div>
+              <div class="s4-excerpt-code">{ <span class="s4-k">"name"</span>: <span class="s4-s">"TOTAL_REVENUE"</span>, <span class="s4-k">"expression"</span>: <span class="s4-s">"SUM(RAW_ACCOUNTS[REVENUE])"</span>,
+  <span class="s4-k">"description"</span>: <span class="s4-s">"Sum of annual revenue across CRM accounts"</span> }</div>
+            </div>
+
+            <div id="s4-ex-3" class="s4-excerpt-card" data-layout-ignore>
+              <div class="s4-excerpt-label">
+                <span>3. TMSL Relationship (Many-to-One Join)</span>
+                <span class="s4-excerpt-tag">"crossFilteringBehavior": 1</span>
+              </div>
+              <div class="s4-excerpt-code">{ <span class="s4-k">"fromTable"</span>: <span class="s4-s">"RAW_ACCOUNTS"</span>, <span class="s4-k">"fromColumn"</span>: <span class="s4-s">"ACCOUNTCATEGORYCODE"</span>,
+  <span class="s4-k">"toTable"</span>: <span class="s4-s">"DIM_ACCOUNT_CATEGORY"</span>, <span class="s4-k">"toColumn"</span>: <span class="s4-s">"CATEGORY_CODE"</span> }</div>
+            </div>
+          </div>
+
+          <div class="s4-right">
+            <div id="s4-star-panel" class="s4-star-panel">
+              <div id="s4-fact" class="s4-fact-box" data-layout-ignore>
+                <div class="s4-table-head">
+                  <span>RAW_ACCOUNTS (Fact)</span>
+                  <span>9 Columns</span>
+                </div>
+                <div class="s4-cols">ACCOUNTID, ACCOUNTNUMBER, ACCOUNT_NAME, ACCOUNTCATEGORYCODE, STATECODE, STATUSCODE, REVENUE, MODIFIEDON, NAME</div>
+              </div>
+
+              <div class="s4-join-zone">
+                <svg class="s4-svg-joins" viewBox="0 0 800 140" preserveAspectRatio="none" fill="none">
+                  <path id="s4-join-1" d="M260 0 C260 65, 195 75, 195 140" stroke="#34d399" stroke-width="3.5" stroke-dasharray="220" stroke-dashoffset="220" />
+                  <path id="s4-join-2" d="M540 0 C540 65, 605 75, 605 140" stroke="#34d399" stroke-width="3.5" stroke-dasharray="220" stroke-dashoffset="220" />
+                  <circle cx="260" cy="6" r="5" fill="#38bdf8" />
+                  <circle cx="540" cy="6" r="5" fill="#38bdf8" />
+                  <circle cx="195" cy="134" r="5" fill="#34d399" />
+                  <circle cx="605" cy="134" r="5" fill="#34d399" />
+                </svg>
+                <div id="s4-fk-1" class="s4-fk-pill s4-fk-left" data-layout-ignore>ACCOUNTCATEGORYCODE -&gt; CATEGORY_CODE</div>
+                <div id="s4-fk-2" class="s4-fk-pill s4-fk-right" data-layout-ignore>STATECODE -&gt; STATE_CODE</div>
+              </div>
+
+              <div class="s4-dims-row">
+                <div id="s4-dim-1" class="s4-dim-box" data-layout-ignore>
+                  <div class="s4-dim-name">DIM_ACCOUNT_CATEGORY</div>
+                  <div class="s4-cols">CATEGORY_CODE, CATEGORY_LABEL</div>
+                </div>
+                <div id="s4-dim-2" class="s4-dim-box" data-layout-ignore>
+                  <div class="s4-dim-name">DIM_ACCOUNT_STATE</div>
+                  <div class="s4-cols">STATE_CODE, STATE_LABEL</div>
+                </div>
+              </div>
+            </div>
+
+            <div id="s4-dax-box" class="s4-dax-box" data-layout-ignore>
+              <div class="s4-dax-row">
+                <span class="s4-dax-name">TOTAL_REVENUE</span>
+                <span class="s4-dax-expr">SUM(RAW_ACCOUNTS[REVENUE])</span>
+              </div>
+              <div class="s4-dax-row">
+                <span class="s4-dax-name">AVERAGE_REVENUE</span>
+                <span class="s4-dax-expr">AVERAGE(RAW_ACCOUNTS[REVENUE])</span>
+              </div>
+              <div class="s4-dax-row">
+                <span class="s4-dax-name">ACCOUNT_COUNT</span>
+                <span class="s4-dax-expr">COUNT(RAW_ACCOUNTS[ACCOUNTID])</span>
+              </div>
+            </div>
+
+            <div id="s4-verified" class="s4-verified-bar" data-layout-ignore>
+              <span>4 Tables · 3 DAX Measures · 2 Joins Verified</span>
+              <span>PASS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s4-eyebrow", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.4 }, 0.08)
+          .fromTo("#s4-title", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55 }, 0.18)
+          .fromTo("#s4-internals", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 0.55)
+          .fromTo("#s4-ex-1", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45 }, 1.15)
+          .fromTo("#s4-ex-2", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45 }, 1.65)
+          .fromTo("#s4-ex-3", { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.45 }, 2.15)
+          .fromTo("#s4-star-panel", { opacity: 0, x: 30 }, { opacity: 1, x: 0, duration: 0.7, ease: "power3.out" }, 1.0)
+          .to("#s4-join-1", { strokeDashoffset: 0, duration: 0.65, ease: "power2.out" }, 2.1)
+          .to("#s4-join-2", { strokeDashoffset: 0, duration: 0.65, ease: "power2.out" }, 2.25)
+          .fromTo(["#s4-fk-1", "#s4-fk-2"], { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.15 }, 2.55)
+          .fromTo("#s4-dax-box", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55 }, 3.2)
+          .fromTo("#s4-verified", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.4)" }, 3.9)
+          .to("#s4-ex-1", { borderColor: "rgba(250, 204, 21, 0.72)", duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 5.0)
+          .to("#s4-ex-2", { borderColor: "rgba(56, 189, 248, 0.72)", duration: 1.0, ease: "sine.inOut", yoyo: true, repeat: 1 }, 7.0)
+          .to("#s4-verified", { boxShadow: "0 0 36px rgba(52, 211, 153, 0.38)", duration: 1.2, ease: "sine.inOut", yoyo: true, repeat: 1 }, 9.2);
+
+        window.__timelines["s4"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

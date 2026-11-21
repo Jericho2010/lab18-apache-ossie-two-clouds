@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="en">
+  <head><meta charset="UTF-8" /></head>
+  <body>
+    <template>
+      <style>
+        #s1-root {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 18% 22%, rgba(244, 63, 94, 0.14) 0%, transparent 45%),
+            radial-gradient(circle at 82% 76%, rgba(56, 189, 248, 0.16) 0%, transparent 48%),
+            #060912;
+          padding: 48px 72px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 16px;
+          color: #f8fafc;
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .s1-header {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        .s1-eyebrow {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 18px;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          color: #38bdf8;
+        }
+        .s1-title {
+          font-size: 56px;
+          font-weight: 800;
+          letter-spacing: -0.02em;
+          color: #f8fafc;
+        }
+        .s1-sub {
+          font-size: 28px;
+          color: #cbd5e1;
+        }
+        .s1-main {
+          flex: 1;
+          min-height: 0;
+          display: grid;
+          grid-template-columns: 0.85fr 1.15fr;
+          gap: 26px;
+          align-items: stretch;
+        }
+        .s1-left {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 12px;
+          min-height: 0;
+        }
+        .s1-card {
+          flex: 1;
+          min-height: 0;
+          background: rgba(13, 19, 34, 0.94);
+          border: 1px solid rgba(148, 163, 184, 0.25);
+          border-radius: 16px;
+          padding: 16px 20px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          gap: 8px;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+        }
+        .s1-card-guilty {
+          border-color: rgba(251, 113, 133, 0.55);
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 0 0 28px rgba(244, 63, 94, 0.16);
+        }
+        .s1-card-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+        }
+        .s1-card-label {
+          font-size: 23px;
+          font-weight: 700;
+          color: #f8fafc;
+          white-space: nowrap;
+        }
+        .s1-pill {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 13px;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 999px;
+          background: rgba(56, 189, 248, 0.14);
+          color: #7dd3fc;
+          border: 1px solid rgba(56, 189, 248, 0.35);
+          white-space: nowrap;
+        }
+        .s1-pill-guilty {
+          background: rgba(244, 63, 94, 0.16);
+          color: #fda4af;
+          border-color: rgba(251, 113, 133, 0.5);
+        }
+        .s1-pill-amber {
+          background: rgba(245, 158, 11, 0.16);
+          color: #fcd34d;
+          border-color: rgba(251, 191, 36, 0.45);
+        }
+        .s1-code {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 17px;
+          line-height: 1.38;
+          color: #e2e8f0;
+          background: rgba(6, 9, 18, 0.88);
+          border: 1px solid rgba(148, 163, 184, 0.16);
+          border-radius: 10px;
+          padding: 11px 14px;
+          white-space: pre-wrap;
+        }
+        .s1-bezel {
+          background: rgba(13, 19, 34, 0.96);
+          border: 1px solid rgba(56, 189, 248, 0.48);
+          border-radius: 18px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          min-height: 0;
+          box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 36px rgba(56, 189, 248, 0.12);
+        }
+        .s1-bezel-bar {
+          background: rgba(15, 23, 42, 0.98);
+          border-bottom: 1px solid rgba(56, 189, 248, 0.25);
+          padding: 12px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+        .s1-bezel-title {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 17px;
+          font-weight: 700;
+          color: #e2e8f0;
+        }
+        .s1-bezel-dot {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background: #34d399;
+        }
+        .s1-bezel-badge {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 14px;
+          font-weight: 700;
+          padding: 4px 11px;
+          border-radius: 999px;
+          background: rgba(16, 185, 129, 0.16);
+          color: #6ee7b7;
+          border: 1px solid rgba(52, 211, 153, 0.45);
+          white-space: nowrap;
+        }
+        .s1-bezel-stage {
+          flex: 1;
+          min-height: 0;
+          background: #0b1120;
+          padding: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .s1-bezel-stage img {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          display: block;
+          border-radius: 10px;
+          border: 1px solid rgba(148, 163, 184, 0.35);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+        }
+        .s1-bezel-foot {
+          background: rgba(10, 15, 29, 0.98);
+          border-top: 1px solid rgba(148, 163, 184, 0.2);
+          padding: 11px 20px;
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 16px;
+          color: #cbd5e1;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+        .s1-converge {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 6px;
+        }
+        .s1-svg-lines {
+          width: 1120px;
+          height: 44px;
+          display: block;
+        }
+        .s1-yaml-badge {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 14px 32px;
+          border-radius: 14px;
+          background: rgba(13, 19, 34, 0.96);
+          border: 1px solid rgba(52, 211, 153, 0.55);
+          box-shadow: 0 0 42px rgba(16, 185, 129, 0.24);
+        }
+        .s1-yaml-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #34d399;
+        }
+        .s1-yaml-path {
+          font-family: Menlo, Monaco, Consolas, monospace;
+          font-size: 28px;
+          font-weight: 700;
+          color: #6ee7b7;
+        }
+        .s1-yaml-tag {
+          font-size: 22px;
+          color: #cbd5e1;
+          padding-left: 16px;
+          border-left: 1px solid rgba(148, 163, 184, 0.3);
+        }
+      </style>
+
+      <div id="s1-root" data-composition-id="s1" data-width="1920" data-height="1080" data-duration="9">
+        <div class="s1-header">
+          <div id="s1-eyebrow" class="s1-eyebrow" data-layout-ignore>LAB 18 · THE METRIC DRIFT PROBLEM · 01 / 06</div>
+          <div id="s1-title" class="s1-title">Same KPI. Three Different Answers.</div>
+          <div id="s1-sub" class="s1-sub">Defining "Preferred Customer Revenue" in three disconnected places over live CRM accounts</div>
+        </div>
+
+        <div class="s1-main">
+          <div class="s1-left">
+            <div id="s1-card-1" class="s1-card">
+              <div class="s1-card-top">
+                <div class="s1-card-label" data-layout-ignore>1. Power BI DAX</div>
+                <div class="s1-pill s1-pill-amber" data-layout-ignore>BI Workbook</div>
+              </div>
+              <div class="s1-code" data-layout-ignore>Preferred Rev =
+SUMX(FILTER(Account,
+  Account[Category] = "Preferred"), Account[Revenue])</div>
+            </div>
+
+            <div id="s1-card-2" class="s1-card">
+              <div class="s1-card-top">
+                <div class="s1-card-label" data-layout-ignore>2. Warehouse SQL</div>
+                <div class="s1-pill s1-pill-guilty" data-layout-ignore>SQL View</div>
+              </div>
+              <div class="s1-code" data-layout-ignore>SUM(CASE WHEN ACCOUNTCATEGORYCODE = 1
+     AND STATECODE = 0 THEN REVENUE ELSE 0 END)</div>
+            </div>
+
+            <div id="s1-card-3" class="s1-card">
+              <div class="s1-card-top">
+                <div class="s1-card-label" data-layout-ignore>3. AI Agent Prompt</div>
+                <div class="s1-pill" data-layout-ignore>System Prompt</div>
+              </div>
+              <div class="s1-code" data-layout-ignore>"Preferred Customer means category code 1; exclude
+inactive accounts when summing annual revenue."</div>
+            </div>
+          </div>
+
+          <div id="s1-dv-bezel" class="s1-bezel">
+            <div class="s1-bezel-bar" data-layout-ignore>
+              <div class="s1-bezel-title">
+                <div class="s1-bezel-dot"></div>
+                <span>Live Platform · Microsoft Dataverse (Power Apps Account Table)</span>
+              </div>
+              <div class="s1-bezel-badge">5 Live CRM Accounts</div>
+            </div>
+            <div class="s1-bezel-stage">
+              <img src="assets/screenshots/dv_accounts.png" alt="Microsoft Dataverse Power Apps Account Table" />
+            </div>
+            <div class="s1-bezel-foot" data-layout-ignore>
+              <span>your-org.crm.dynamics.com</span>
+              <span style="color:#6ee7b7;">$6,390,000.00 Total · $4,990,000.00 Preferred+Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="s1-converge">
+          <svg class="s1-svg-lines" viewBox="0 0 1120 44" fill="none">
+            <path id="s1-path-left" d="M160 2 C160 24, 560 18, 560 42" stroke="#38bdf8" stroke-width="3" stroke-dasharray="520" stroke-dashoffset="520" />
+            <path id="s1-path-mid" d="M560 2 L560 42" stroke="#fb7185" stroke-width="3" stroke-dasharray="60" stroke-dashoffset="60" />
+            <path id="s1-path-right" d="M960 2 C960 24, 560 18, 560 42" stroke="#34d399" stroke-width="3" stroke-dasharray="520" stroke-dashoffset="520" />
+          </svg>
+
+          <div id="s1-yaml-badge" class="s1-yaml-badge">
+            <div class="s1-yaml-dot"></div>
+            <div class="s1-yaml-path">semantic/crm_account_model.ossie.yaml</div>
+            <div class="s1-yaml-tag" data-layout-ignore>Apache Ossie · One Definition in Git</div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const tl = gsap.timeline({ paused: true });
+        tl.fromTo("#s1-eyebrow", { opacity: 0, y: -12 }, { opacity: 1, y: 0, duration: 0.35, ease: "power3.out" }, 0.05)
+          .fromTo("#s1-title", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.15)
+          .fromTo("#s1-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.35)
+          .fromTo("#s1-card-1", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.6)
+          .fromTo("#s1-card-2", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 0.95)
+          .fromTo("#s1-card-3", { opacity: 0, x: -24 }, { opacity: 1, x: 0, duration: 0.5, ease: "power3.out" }, 1.3)
+          .fromTo("#s1-dv-bezel", { opacity: 0, x: 28, scale: 0.98 }, { opacity: 1, x: 0, scale: 1, duration: 0.7, ease: "power3.out" }, 1.0)
+          .to("#s1-path-left", { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 2.1)
+          .to("#s1-path-mid", { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" }, 2.2)
+          .to("#s1-path-right", { strokeDashoffset: 0, duration: 0.7, ease: "power2.inOut" }, 2.1)
+          .fromTo("#s1-yaml-badge", { opacity: 0, y: 16, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.4)" }, 2.75)
+          .to("#s1-yaml-badge", { boxShadow: "0 0 60px rgba(52, 211, 153, 0.52)", duration: 1.3, ease: "sine.inOut", yoyo: true, repeat: 1 }, 5.4);
+
+        window.__timelines["s1"] = tl;
+      </script>
+    </template>
+  </body>
+</html>

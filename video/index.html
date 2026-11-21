@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Lab 18: One Semantic YAML, Multiple Cloud Platforms (Apache Ossie)</title>
+    <script src="assets/gsap.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html, body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #060912;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #060912;
+      }
+      #root > div[data-composition-src] {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="root"
+      data-start="0"
+      data-duration="70"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div
+        id="slot-s1"
+        data-composition-id="s1"
+        data-composition-src="compositions/s1_problem.html"
+        data-start="0"
+        data-duration="9"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="slot-s2"
+        data-composition-id="s2"
+        data-composition-src="compositions/s2_single_yaml.html"
+        data-start="9"
+        data-duration="11"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="slot-s3"
+        data-composition-id="s3"
+        data-composition-src="compositions/s3_snowflake_mcp.html"
+        data-start="20"
+        data-duration="13"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="slot-s4"
+        data-composition-id="s4"
+        data-composition-src="compositions/s4_powerbi_pbit.html"
+        data-start="33"
+        data-duration="13"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="slot-s5"
+        data-composition-id="s5"
+        data-composition-src="compositions/s5_rough_edges.html"
+        data-start="46"
+        data-duration="11"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+
+      <div
+        id="slot-s6"
+        data-composition-id="s6"
+        data-composition-src="compositions/s6_outro.html"
+        data-start="57"
+        data-duration="13"
+        data-track-index="1"
+        data-width="1920"
+        data-height="1080"
+      ></div>
+    </div>
+
+    <script>
+      window.__timelines["root"] = gsap.timeline({ paused: true });
+    </script>
+  </body>
+</html>

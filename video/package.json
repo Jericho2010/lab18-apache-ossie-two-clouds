@@ -1,0 +1,11 @@
+{
+  "name": "lab18-ossie-two-clouds-video",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npx --yes hyperframes@0.9.74 check",
+    "snapshot": "npx --yes hyperframes@0.9.74 snapshot",
+    "preview": "npx --yes hyperframes@0.9.74 preview",
+    "render": "npx --yes hyperframes@0.9.74 render"
+  }
+}
